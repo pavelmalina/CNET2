@@ -1,11 +1,19 @@
-﻿namespace Data
+﻿using Model;
+
+namespace Data
 {
     public class FreqAnalysis
     {
         public static Dictionary<string, int> FreqAnalysisFromString(string input)
         {
             var result = new Dictionary<string, int>();
-            var strAr = input.Split(new String[] { " ", "\t", "\r", "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            var strAr = input.Replace(":", " ")
+                .Replace(".", " ")
+                .Replace(",", " ")
+                .Replace("(", "")
+                .Replace(")", "")
+                .Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var item in strAr)
             {
@@ -22,19 +30,33 @@
             return result;
         }
 
-        public static async Task<Dictionary<string, int>> FreqAnalysisFromUrlAsync(string url)
+        public static async Task<FAResult> FreqAnalysisFromUrlAsync(string url)
         {
             var client = new HttpClient();
             var content = await client.GetStringAsync(url);
 
-            return FreqAnalysisFromString(content);
+            var dict = FreqAnalysisFromString(content);
+
+            return new FAResult
+            {
+                Source = url,
+                SourceType = SourceType.Url,
+                Words = dict,
+            };
         }
 
-        public static Dictionary<string, int> FreqAnalysisFromFile(string fileName)
+        public static FAResult FreqAnalysisFromFile(string fileName)
         {
             var content = File.ReadAllText(fileName);
 
-            return FreqAnalysisFromString(content);
+            var dict = FreqAnalysisFromString(content);
+
+            return new FAResult
+            {
+                Source = fileName,
+                SourceType = SourceType.File,
+                Words = dict,
+            };
         }
     }
 }
