@@ -27,6 +27,17 @@ var ukol2 = numbers.OrderBy(x => x).Skip(1).SkipLast(1).Average();
 Console.WriteLine("Ukol2:");
 Console.WriteLine(ukol2);
 
+// Ukol 3
+var ukol3s = numbers.Where(x => x % 2 == 0).Count();
+var ukol3l = numbers.Where(x => x % 2 != 0).Count();
+Console.WriteLine($"Ukol3: suda: {ukol3s} licha: {ukol3l}");
+
+// Ukol 4
+var numbers2 = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+var strings = new[] { "zero", "one", "two", "three", "four",
+    "five", "six", "seven", "eight", "nine" };
+
+Console.WriteLine(string.Join(", ", numbers2.Select(x => strings[x])));
 
 
 void printNuAr(IEnumerable<int> numbers)
