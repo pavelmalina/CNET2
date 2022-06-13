@@ -29,12 +29,14 @@
 
         public override string ToString() => $"{SourceType} / {Source} - pocet: {Words?.Count}";
 
-        public void PrintTenMostFrequentedWords()
+        public Dictionary<string, int> TenMostFrequentedWords() => (Dictionary<string, int>)Words.OrderByDescending(x => x.Value).Take(10);
+
+        public void PrintTenMostFrequentedWordsToConsole()
         {
             Console.WriteLine($"File: {Source}");
             Console.WriteLine($"-------------------------------");
 
-            var tenMost = Words.OrderByDescending(x => x.Value).Take(10);
+            var tenMost = TenMostFrequentedWords();
 
             var i = 0;
             foreach (var t in tenMost)
