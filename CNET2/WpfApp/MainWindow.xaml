@@ -14,12 +14,14 @@
             <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnLoadFiles" Content="Načti soubory" Grid.Row="0" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnLoadFiles_Click"/>
+        <Button x:Name="btnLoadFiles" Content="Sekvenční analýza" Grid.Row="0" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnLoadFiles_Click"/>
 
         <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch">
             <TextBlock x:Name="txbInfo"  TextWrapping="Wrap" />
         </ScrollViewer>
         <ProgressBar Name="pbInfo" HorizontalAlignment="Left" Height="10" Margin="242,25,0,0" VerticalAlignment="Top" Width="300" RenderTransformOrigin="0.5,0.5">
         </ProgressBar>
+        <Button x:Name="btnParallel1" Content="Paralelní sekvenční analýza" Grid.Row="0" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top" Width="152" Height="31" Click="btnParallel1_Click"/>
+        <Button x:Name="btnParallel2" Content="Paralelní sekvenční analýza&#xD;&#xA;async" Grid.Row="0" HorizontalAlignment="Left" Margin="189,43,0,0" VerticalAlignment="Top" Width="152" Height="45" Click="btnParallel2_Click"/>
     </Grid>
 </Window>
