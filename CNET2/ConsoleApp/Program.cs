@@ -64,4 +64,43 @@ static void FreqWords()
     }
 }
 
+// Interface test Interfacu
+static void GreetClient(IGreetable client)
+{
+    Console.WriteLine(client.SayHello());
+}
+
+static void GreetClients(List<IGreetable> clients)
+{
+    foreach (var client in clients)
+    {
+        Console.WriteLine(client.SayHello());
+    }
+}
+
+var client1 = new Client
+{
+    Name = "Pavel",
+};
+
+var client2 = new VipClient
+{
+    Name = "Franta",
+    Status = "Super Zákazník",
+};
+
+var client3 = new Client
+{
+    Name = "Petr",
+};
+
+//GreetClient(client1);GreetClient(client2);GreetClient(client3);
+
+var seznam = new List<IGreetable>()
+{
+    client1, client2, client3
+};
+
+GreetClients(seznam);
+
 Console.ReadLine();

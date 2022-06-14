@@ -15,6 +15,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button x:Name="btnLoadFiles" Content="Načti soubory" Grid.Row="0" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnLoadFiles_Click"/>
-        <TextBlock x:Name="txbInfo" HorizontalAlignment="Stretch" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+
+        <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch">
+            <TextBlock x:Name="txbInfo"  TextWrapping="Wrap" />
+        </ScrollViewer>
+        <ProgressBar Name="pbInfo" HorizontalAlignment="Left" Height="10" Margin="242,25,0,0" VerticalAlignment="Top" Width="300" RenderTransformOrigin="0.5,0.5">
+        </ProgressBar>
     </Grid>
 </Window>

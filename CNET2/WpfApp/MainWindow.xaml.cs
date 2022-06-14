@@ -1,7 +1,9 @@
 ﻿using Data;
-using Model;
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace WpfApp
 {
@@ -19,17 +21,29 @@ namespace WpfApp
 
         private void btnLoadFiles_Click(object sender, RoutedEventArgs e)
         {
-            txbInfo.Text = "Načítám soubory..";
+            Mouse.OverrideCursor = Cursors.Wait;
+            var sw = Stopwatch.StartNew();
+            
+            txbInfo.Text = $"Načítám soubory..{Environment.NewLine}";
             frmMain.Title = "Paralelní načítátko";
 
             var files = Directory.GetFiles(filesDir, "*.txt");
-
+            
+            pbInfo.Value = 0;
+            pbInfo.Maximum = files.Length;
             foreach (var file in files)
             {
+                pbInfo.Value++;
                 var words = FreqAnalysis.FreqAnalysisFromFile(file);
 
                 txbInfo.Text += words.TenMostFrequentWordsOutput;
+                txbInfo.Text += Environment.NewLine;
+
             }
+
+            Mouse.OverrideCursor = null;
+            sw.Stop();
+            frmMain.Title = $"Trvalo to {sw.Elapsed.TotalMilliseconds} ";
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using System.Linq;
+
+namespace Model
 {
     public enum SourceType
     {
@@ -29,7 +31,7 @@
 
         public override string ToString() => $"{SourceType} / {Source} - pocet: {Words?.Count}";
 
-        public Dictionary<string, int> TenMostFrequentedWords() => (Dictionary<string, int>)Words.OrderByDescending(x => x.Value).Take(10);
+        public Dictionary<string, int> TenMostFrequentedWords() => Words.OrderByDescending(x => x.Value).Take(10).ToDictionary(x => x.Key, x => x.Value);
 
         public void PrintTenMostFrequentedWordsToConsole()
         {
@@ -50,7 +52,8 @@
 
         public string GetTenMostFrequentWords()
         {
-            var result = $"File: {Source}\r\n";
+            var result = $"File: {Source}{Environment.NewLine}";
+            result += $"---------------------------------------------{Environment.NewLine}";
 
             var tenMost = TenMostFrequentedWords();
 
@@ -58,15 +61,12 @@
             foreach (var t in tenMost)
             {
                 i++;
-                result += $"{i} {t.Key} - {t.Value}";
+                result += $"{i} {t.Key} - {t.Value}{Environment.NewLine}";
             }
 
             return result;
         }
 
-        public string TenMostFrequentWordsOutput
-        {
-            get => GetTenMostFrequentWords();
-        }
+        public string TenMostFrequentWordsOutput => GetTenMostFrequentWords();
     }
 }
