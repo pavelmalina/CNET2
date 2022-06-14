@@ -47,5 +47,26 @@
 
             Console.WriteLine("");
         }
+
+        public string GetTenMostFrequentWords()
+        {
+            var result = $"File: {Source}\r\n";
+
+            var tenMost = TenMostFrequentedWords();
+
+            var i = 0;
+            foreach (var t in tenMost)
+            {
+                i++;
+                result += $"{i} {t.Key} - {t.Value}";
+            }
+
+            return result;
+        }
+
+        public string TenMostFrequentWordsOutput
+        {
+            get => GetTenMostFrequentWords();
+        }
     }
 }

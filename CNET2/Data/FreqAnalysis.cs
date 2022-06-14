@@ -8,12 +8,7 @@ namespace Data
         {
             var result = new Dictionary<string, int>();
 
-            var strAr = input.Replace(":", " ")
-                .Replace(".", " ")
-                .Replace(",", " ")
-                .Replace("(", "")
-                .Replace(")", "")
-                .Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            var strAr = input.Split(Environment.NewLine);
 
             foreach (var item in strAr)
             {
