@@ -23,5 +23,7 @@
         </ProgressBar>
         <Button x:Name="btnParallel1" Content="Paralelní sekvenční analýza" Grid.Row="0" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top" Width="152" Height="31" Click="btnParallel1_Click"/>
         <Button x:Name="btnParallel2" Content="Paralelní sekvenční analýza&#xD;&#xA;async" Grid.Row="0" HorizontalAlignment="Left" Margin="189,43,0,0" VerticalAlignment="Top" Width="152" Height="45" Click="btnParallel2_Click"/>
+        <Button x:Name="btnTaskFirst" Content="Url první výsledek" Grid.Row="0" HorizontalAlignment="Left" Margin="400,43,0,0" VerticalAlignment="Top" Width="152" Height="45" Click="btnTaskFirst_Click"/>
+        <Button x:Name="btnTaskAll" Content="Url všechny výsledky" Grid.Row="0" HorizontalAlignment="Left" Margin="579,43,0,0" VerticalAlignment="Top" Width="152" Height="45" Click="btnTaskAll_Click"/>
     </Grid>
 </Window>
