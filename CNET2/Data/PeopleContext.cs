@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    internal class PeopleContext : DbContext
+    public class PeopleContext : DbContext
     {
         // Tohle musí být property, jinak nešlape
         public DbSet<Person> Persons { get; set; }

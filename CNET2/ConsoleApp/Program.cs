@@ -163,6 +163,20 @@ Console.WriteLine($"{xxx.Count()}");
 var lastSmlouva = dataSet.Where(x => x.Contracts.Any()).OrderByDescending(x => x.Contracts.OrderByDescending(a => a.Signed).First().Signed).First();
 Console.WriteLine($"{lastSmlouva.FullName} - {lastSmlouva.Contracts?.First().Number} / {lastSmlouva.Contracts?.First().Signed.ToString("dd.MM.yyyy")}");
 
+// EF Core Example
+// Načtení DB kontextu + Načtení datasetu do db
+
+// using se dá použít i bez označení platnosti
+// pak se jedná o aktuální closure (fce, ...)
+using var db = new PeopleContext();
+
+//db.Persons.AddRange(dataSet);
+//db.SaveChanges();
+
+Console.WriteLine(db.Persons.Count());
+Console.WriteLine(db.Addresses.Count());
+Console.WriteLine(db.Contracts.Count());
+
 
 //---------------------------------------------------------------
 
