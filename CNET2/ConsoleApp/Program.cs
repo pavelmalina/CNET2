@@ -124,12 +124,44 @@ var nejstarsi = dataSet.OrderBy(x => x.DateOfBirth).FirstOrDefault();
 Console.WriteLine($"Nejmladší: {nejmladsi?.FullName} - {nejmladsi?.Age()}");
 Console.WriteLine($"Nejstarší: {nejstarsi?.FullName} - {nejstarsi?.Age()}");
 
-// Anonymní typ
+// Vracíme jako anonymní typ
 var jmVek = dataSet.Select(x => new { x.FullName, Age = x.Age() });
 foreach (var jmV in jmVek)
 {
     Console.WriteLine($"{jmV.FullName} - {jmV.Age}");
 }
+
+// Vracíme jako tuple
+var jmVekTuple = dataSet.Select(x => (x.FullName, Age: x.Age()));
+
+// Group By
+Console.WriteLine(Environment.NewLine);
+var grByMesto = dataSet.GroupBy(x => x.HomeAddress.City);
+
+foreach (var grm in grByMesto)
+{
+    Console.WriteLine($"{grm.Key} - {grm.Count()}{Environment.NewLine}");
+
+    foreach (var person in grm)
+    {
+        Console.WriteLine($"{person.FullName}");
+    }
+
+    Console.WriteLine(Environment.NewLine);
+}
+
+// SelectMany - "zplosteni" pod kolekce
+var xxx = dataSet.SelectMany(x => x.Contracts);
+Console.WriteLine($"{xxx.Count()}");
+
+// Aggregate - vraci nase moznost implementace agregacni funkce
+
+// TEST: Kdo uzavřel poslední smlouvu
+//var lastSmlouva = dataSet.Select(x => new { x.FullName, Contract = x.Contracts.OrderByDescending(a => a.Signed).FirstOrDefault() }).OrderByDescending(x => x.Contract?.Signed).First();
+//Console.WriteLine($"{lastSmlouva.FullName} - {lastSmlouva.Contract?.Number} / {lastSmlouva.Contract?.Signed.ToString("dd.MM.yyyy")}");
+
+var lastSmlouva = dataSet.Where(x => x.Contracts.Any()).OrderByDescending(x => x.Contracts.OrderByDescending(a => a.Signed).First().Signed).First();
+Console.WriteLine($"{lastSmlouva.FullName} - {lastSmlouva.Contracts?.First().Number} / {lastSmlouva.Contracts?.First().Signed.ToString("dd.MM.yyyy")}");
 
 
 //---------------------------------------------------------------
