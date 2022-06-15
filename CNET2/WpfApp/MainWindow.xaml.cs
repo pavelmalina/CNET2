@@ -195,7 +195,7 @@ namespace WpfApp
             // WhenFirst - WhenAll
             //var firstDone = await Task.WhenAny(task1, task2, task3);
             //txbInfo.Text = $"Doběhl první task {firstDone.Result}";
-            // pouzitelne napr. redundantni volani na 2 servery (staci mi jeden z nich)
+            // pouzitelne napr. redundantni volani na 2 servery (staci mi prvni z nich)
 
             var waitTask = await Task.WhenAll(tasks);
             txbInfo.Text += $"{Environment.NewLine}";
