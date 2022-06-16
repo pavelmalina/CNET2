@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
 {
@@ -35,6 +36,13 @@ namespace Model
         }
 
         public DateTime DateOfBirth { get; set; }
+
+        [NotMapped]
+        public DateOnly DateOfBirthDateOnly
+        {
+            get => DateOnly.FromDateTime(DateOfBirth);
+            set => DateOfBirth = value.ToDateTime(new TimeOnly(0));
+        }
 
         public Address HomeAddress { get; set; } = new Address();
 

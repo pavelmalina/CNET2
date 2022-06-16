@@ -40,7 +40,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("Model.Company", b =>
@@ -64,7 +64,7 @@ namespace Data.Migrations
                         .IsUnique()
                         .HasFilter("[AddrId] IS NOT NULL");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("Model.Contract", b =>
@@ -101,7 +101,7 @@ namespace Data.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Contracts");
+                    b.ToTable("Contracts", (string)null);
                 });
 
             modelBuilder.Entity("Model.Person", b =>
@@ -144,7 +144,7 @@ namespace Data.Migrations
 
                     b.HasIndex("HomeAddressId");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Persons", (string)null);
                 });
 
             modelBuilder.Entity("Model.Company", b =>
