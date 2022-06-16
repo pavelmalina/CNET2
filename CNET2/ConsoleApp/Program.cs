@@ -1,4 +1,5 @@
 ﻿using Data;
+using Microsoft.EntityFrameworkCore;
 using Model;
 
 void TestParalelism()
@@ -172,6 +173,33 @@ using var db = new PeopleContext();
 
 //db.Persons.AddRange(dataSet);
 //db.SaveChanges();
+
+// Pridani noveho radku
+var address = new Address
+{
+    Street = "ulice 123",
+    City = "Mestecko",
+};
+
+var j = 1;
+
+foreach (var person in db.Persons.Include("Contracts"))
+{
+    var contract = person.Contracts.FirstOrDefault();
+
+    if (contract == null)
+    {
+        continue;
+    }
+
+    contract.Company = new Company
+    {
+        Name = $"Testovací company {j++}",
+        Address = address,
+    };
+}
+
+db.SaveChanges();
 
 Console.WriteLine(db.Persons.Count());
 Console.WriteLine(db.Addresses.Count());

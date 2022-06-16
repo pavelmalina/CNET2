@@ -1,7 +1,9 @@
-﻿using System.Xml.Serialization;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
+    [Index(nameof(Email))]
     public class Person
     {
         #region konstruktory
@@ -21,9 +23,11 @@ namespace Model
 
         public int Id { get; set; }
 
-        public string FirstName { get; set; } = "John";
+        [MaxLength(100)]
+        public string FirstName { get; set; } = string.Empty;
 
-        public string LastName { get; set; } = "Doe";
+        [MaxLength(120)]
+        public string LastName { get; set; } = string.Empty;
 
         public string FullName
         {
@@ -34,7 +38,12 @@ namespace Model
 
         public Address HomeAddress { get; set; } = new Address();
 
+        [MaxLength(256)]
+        [Required]
         public string Email { get; set; }
+
+        [MaxLength(100)]
+        public string Phone { get; set; }
 
         public List<Contract> Contracts { get; set; } = new List<Contract>();
 

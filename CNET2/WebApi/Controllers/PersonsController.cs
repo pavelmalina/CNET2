@@ -26,9 +26,9 @@ namespace WebApi.Controllers
         public IEnumerable<Person> GetByEmail(string email) => _dataSet.Persons.Where(x => x.Email.ToLowerInvariant().Contains(email.ToLowerInvariant())).Include(x => x.Contracts).Include(x => x.HomeAddress);
 
         [HttpGet("GetSingleByEmail/{email}")]
-        public Person GetSingleByEmail(string email) => _dataSet.Persons.Include(x => x.Contracts).Include(x => x.HomeAddress).Where(x => x.Email.ToLower().Contains(email.ToLower())).FirstOrDefault();
+        public Person GetSingleByEmail(string email) => _dataSet.Persons.Include(x => x.Contracts).ThenInclude(x => x.Company).Include(x => x.HomeAddress).FirstOrDefault(x => x.Email.ToLower().Contains(email.ToLower()));
 
         [HttpGet("GetById/{id}")]
-        public Person GetSingleById(int id) => _dataSet.Persons.Include(x => x.Contracts).Include(x => x.HomeAddress).FirstOrDefault(x => x.Id == id);
+        public Person GetSingleById(int id) => _dataSet.Persons.Include(x => x.Contracts).ThenInclude(x => x.Company).Include(x => x.HomeAddress).FirstOrDefault(x => x.Id == id);
     }
 }
