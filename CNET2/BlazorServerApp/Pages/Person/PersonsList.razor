@@ -1,0 +1,32 @@
+﻿@page "/personList"
+@inject PeopleContext db
+@using Data
+@using Model
+
+<h3>PersonsList</h3>
+
+@if (persons == null)
+{
+	<div>Loading...</div>
+}
+else
+{
+	<div>
+		@foreach (var person in persons)
+		{
+			<div>
+				@person.FullName;
+				&nbsp;&nbsp;<a href="personEdit/@(person.Id)">detail</a>
+			</div>
+		}
+	</div>
+}
+
+@code {
+	List<Person>? persons { get; set; } = null;
+
+	protected override void OnInitialized()
+	{
+		persons = db.Persons.ToList();
+	}
+}

@@ -1,4 +1,4 @@
-using BlazorServerApp.Data;
+using BlazorServerApp.WeatherData;
 using Data;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,0 +1,33 @@
+﻿@page "/personAdd"
+@using Model
+@inject PeopleContext db
+
+<h3>Add Person</h3>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Jméno</label>
+  <input type="text" class="form-control" id="firstName" placeholder="Jan" @bind-value=Person.FirstName />
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Příjmení</label>
+  <input type="text" class="form-control" id="lastName" placeholder="Novák" @bind-value=Person.LastName />
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">E-mail</label>
+  <input type="text" class="form-control" id="email" placeholder="name@example.com" @bind-value=Person.Email />
+</div>
+
+<button type="button" class="btn btn-primary">Ulož</button>
+
+
+@code {
+	// Pozor musíme inicializovat
+	public Person Person { get; set; } = new Person();
+
+	protected override void OnInitialized()
+	{
+		//p = db.Persons.Include(x => x.Contracts).FirstOrDefault(x => x.Id == Id);
+	}
+}

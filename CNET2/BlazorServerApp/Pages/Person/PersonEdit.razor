@@ -1,0 +1,40 @@
+﻿@page "/personEdit/{Id:int}"
+@using Data
+@using Microsoft.EntityFrameworkCore
+@using Model
+@inject PeopleContext db
+
+<h3>PersonEdit</h3>
+
+@if (p == null)
+{
+	<div>Tato osoba neni.</div>
+}
+else
+{
+	<div>
+		<div>@p.Id</div>
+		<div>@p.FullName</div>
+		<div>@p.HomeAddress.Street @p.HomeAddress.City</div>
+
+		<h3>Smlouvy:</h3>
+		@foreach (var c in p.Contracts)
+		{
+			<div>@(c.Number)</div>
+			<div>@(c.Company?.Name) (@(c.Company?.Id))</div>
+		}
+	</div>
+}
+
+@code {
+	Person? p = null;
+
+	// tady se vlozi Get parametr z routy
+	[Parameter]
+	public int Id { get; set; }
+
+	protected override void OnInitialized()
+	{
+		p = db.Persons.Include(x => x.Contracts).ThenInclude(x => x.Company).Include(x => x.HomeAddress).FirstOrDefault(x => x.Id == Id);
+	}
+}

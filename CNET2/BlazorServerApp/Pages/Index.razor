@@ -1,9 +1,31 @@
 ﻿@page "/"
+@inject PeopleContext db
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+Welcome to your new app - People.
 
-Welcome to your new app.
+@*<SurveyPrompt Title="How is Blazor working for you?" />*@
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<h2>Počet lidí v db</h2>
+
+<div>
+	@if (count == null)
+	{
+		<div>Loading...</div>
+	}
+	else
+	{
+		<div>V Db máme @count lidí.</div>
+	}
+</div>
+
+@code {
+	int? count = null;
+
+	protected override void OnInitialized()
+	{
+		count = db.Persons.Count();
+
+	}
+}
