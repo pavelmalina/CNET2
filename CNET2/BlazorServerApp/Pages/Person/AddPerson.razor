@@ -5,29 +5,52 @@
 <h3>Add Person</h3>
 
 <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Jméno</label>
-  <input type="text" class="form-control" id="firstName" placeholder="Jan" @bind-value=Person.FirstName />
+	<label for="exampleFormControlInput1" class="form-label">Jméno</label>
+	<input type="text" class="form-control" id="firstName" placeholder="Jan" @bind-value=Person.FirstName />
 </div>
 
 <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Příjmení</label>
-  <input type="text" class="form-control" id="lastName" placeholder="Novák" @bind-value=Person.LastName />
+	<label for="exampleFormControlInput1" class="form-label">Příjmení</label>
+	<input type="text" class="form-control" id="lastName" placeholder="Novák" @bind-value=Person.LastName />
 </div>
 
 <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-  <input type="text" class="form-control" id="email" placeholder="name@example.com" @bind-value=Person.Email />
+	<label for="exampleFormControlInput1" class="form-label">E-mail</label>
+	<input type="email" class="form-control" id="email" placeholder="name@example.com" @bind-value=Person.Email />
 </div>
 
-<button type="button" class="btn btn-primary">Ulož</button>
+<div class="mb-3">
+	<label for="exampleFormControlInput1" class="form-label">E-mail</label>
+	<input type="text" class="form-control" id="phone" placeholder="123 456 789" @bind-value=Person.Phone />
+</div>
 
+<button type="button" class="btn btn-primary" @onclick=Save>Ulož</button>
+
+<div>
+	@Message
+</div>
 
 @code {
 	// Pozor musíme inicializovat
 	public Person Person { get; set; } = new Person();
 
-	protected override void OnInitialized()
+	public string Message { get; set; } = string.Empty;
+
+	public void Save()
 	{
-		//p = db.Persons.Include(x => x.Contracts).FirstOrDefault(x => x.Id == Id);
+		// Adresa je kompletni
+		Person.HomeAddress = new Address { City = "Brno", Company = null, Street = "Ulice v Brně 123" };
+
+		if (Person.Id < 1)
+		{
+			db.Persons.Add(Person);
+			Message = "Added";
+		}
+		else
+		{
+			Message = "Updated";
+		}
+
+		db.SaveChanges();
 	}
 }

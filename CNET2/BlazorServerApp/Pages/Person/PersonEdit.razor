@@ -6,35 +6,50 @@
 
 <h3>PersonEdit</h3>
 
-@if (p == null)
+@if (Person == null)
 {
 	<div>Tato osoba neni.</div>
 }
 else
 {
 	<div>
-		<div>@p.Id</div>
-		<div>@p.FullName</div>
-		<div>@p.HomeAddress.Street @p.HomeAddress.City</div>
+		<div>@Person.Id</div>
+		<div>Jmeno: <input type="text" id="firstName" @bind-value=Person.FirstName /></div>
+		<div>Příjmení: <input type="text" id="lastName" @bind-value=Person.LastName /></div>
+		<div>@Person?.HomeAddress.Street @Person?.HomeAddress.City</div>
 
 		<h3>Smlouvy:</h3>
-		@foreach (var c in p.Contracts)
+		@foreach (var c in Person?.Contracts)
 		{
 			<div>@(c.Number)</div>
 			<div>@(c.Company?.Name) (@(c.Company?.Id))</div>
 		}
 	</div>
+
+	<button class="btn btn-primary" @onclick=Save>Uložit</button>
 }
 
+<div>@Message</div>
+
 @code {
-	Person? p = null;
 
 	// tady se vlozi Get parametr z routy
 	[Parameter]
 	public int Id { get; set; }
 
+	public Person? Person { get; set; } = new Person();
+
+	public string Message { get; set; } = string.Empty;
+
+
 	protected override void OnInitialized()
 	{
-		p = db.Persons.Include(x => x.Contracts).ThenInclude(x => x.Company).Include(x => x.HomeAddress).FirstOrDefault(x => x.Id == Id);
+		Person = db.Persons.Include(x => x.Contracts).ThenInclude(x => x.Company).Include(x => x.HomeAddress).FirstOrDefault(x => x.Id == Id);
+	}
+
+	public void Save()
+	{
+		db.SaveChanges();
+		Message = "Uloženo";
 	}
 }
